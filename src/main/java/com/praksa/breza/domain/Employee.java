@@ -1,7 +1,9 @@
 package com.praksa.breza.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -24,6 +26,11 @@ public class Employee implements Serializable {
 
     @Column(name = "last_name")
     private String lastName;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties("")
+    private Position position;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -58,6 +65,19 @@ public class Employee implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public Employee position(Position position) {
+        this.position = position;
+        return this;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

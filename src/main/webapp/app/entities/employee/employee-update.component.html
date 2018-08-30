@@ -20,6 +20,19 @@
                         [(ngModel)]="employee.lastName" />
                 </div>
 
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="brezaApp.employee.position" for="field_position">Position</label>
+                    <select class="form-control" id="field_position" name="position" [(ngModel)]="employee.position"  required>
+                        <option *ngIf="!editForm.value.position" [ngValue]="null" selected></option>
+                        <option [ngValue]="positionOption.id === employee.position?.id ? employee.position : positionOption" *ngFor="let positionOption of positions; trackBy: trackPositionById">{{positionOption.name}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.position?.dirty && editForm.controls.position?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.position?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

@@ -3,6 +3,7 @@ package com.praksa.breza.web.rest;
 import com.praksa.breza.BrezaApp;
 
 import com.praksa.breza.domain.Employee;
+import com.praksa.breza.domain.Position;
 import com.praksa.breza.repository.EmployeeRepository;
 import com.praksa.breza.web.rest.errors.ExceptionTranslator;
 
@@ -86,6 +87,11 @@ public class EmployeeResourceIntTest {
         Employee employee = new Employee()
             .firstName(DEFAULT_FIRST_NAME)
             .lastName(DEFAULT_LAST_NAME);
+        // Add required entity
+        Position position = PositionResourceIntTest.createEntity(em);
+        em.persist(position);
+        em.flush();
+        employee.setPosition(position);
         return employee;
     }
 

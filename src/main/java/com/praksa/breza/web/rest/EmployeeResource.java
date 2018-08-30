@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -43,7 +44,7 @@ public class EmployeeResource {
      */
     @PostMapping("/employees")
     @Timed
-    public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) throws URISyntaxException {
+    public ResponseEntity<Employee> createEmployee(@Valid @RequestBody Employee employee) throws URISyntaxException {
         log.debug("REST request to save Employee : {}", employee);
         if (employee.getId() != null) {
             throw new BadRequestAlertException("A new employee cannot already have an ID", ENTITY_NAME, "idexists");
@@ -65,7 +66,7 @@ public class EmployeeResource {
      */
     @PutMapping("/employees")
     @Timed
-    public ResponseEntity<Employee> updateEmployee(@RequestBody Employee employee) throws URISyntaxException {
+    public ResponseEntity<Employee> updateEmployee(@Valid @RequestBody Employee employee) throws URISyntaxException {
         log.debug("REST request to update Employee : {}", employee);
         if (employee.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");

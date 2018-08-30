@@ -17,7 +17,8 @@
                 "title": "Employee"
             },
             "firstName": "First Name",
-            "lastName": "Last Name"
+            "lastName": "Last Name",
+            "position": "Position"
         }
     }
 }

@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { JhiAlertService } from 'ng-jhipster';
 
 import { IEmployee } from 'app/shared/model/employee.model';
 import { EmployeeService } from './employee.service';
+import { IPosition } from 'app/shared/model/position.model';
+import { PositionService } from 'app/entities/position';
 
 @Component({
     selector: 'jhi-employee-update',
@@ -14,13 +17,26 @@ export class EmployeeUpdateComponent implements OnInit {
     private _employee: IEmployee;
     isSaving: boolean;
 
-    constructor(private employeeService: EmployeeService, private activatedRoute: ActivatedRoute) {}
+    positions: IPosition[];
+
+    constructor(
+        private jhiAlertService: JhiAlertService,
+        private employeeService: EmployeeService,
+        private positionService: PositionService,
+        private activatedRoute: ActivatedRoute
+    ) {}
 
     ngOnInit() {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ employee }) => {
             this.employee = employee;
         });
+        this.positionService.query().subscribe(
+            (res: HttpResponse<IPosition[]>) => {
+                this.positions = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 
     previousState() {
@@ -47,6 +63,14 @@ export class EmployeeUpdateComponent implements OnInit {
 
     private onSaveError() {
         this.isSaving = false;
+    }
+
+    private onError(errorMessage: string) {
+        this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    trackPositionById(index: number, item: IPosition) {
+        return item.id;
     }
     get employee() {
         return this._employee;

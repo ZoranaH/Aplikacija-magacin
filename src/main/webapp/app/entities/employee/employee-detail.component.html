@@ -13,6 +13,12 @@
                 <dd>
                     <span>{{employee.lastName}}</span>
                 </dd>
+                <dt><span jhiTranslate="brezaApp.employee.position">Position</span></dt>
+                <dd>
+                    <div *ngIf="employee.position">
+                        <a [routerLink]="['/position', employee.position?.id, 'view']">{{employee.position?.name}}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"
