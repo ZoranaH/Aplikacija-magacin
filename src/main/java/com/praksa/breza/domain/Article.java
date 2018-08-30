@@ -1,5 +1,6 @@
 package com.praksa.breza.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -27,6 +28,10 @@ public class Article implements Serializable {
     @NotNull
     @Column(name = "amount", nullable = false)
     private Integer amount;
+
+    @ManyToOne
+    @JsonIgnoreProperties("")
+    private Client client;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -61,6 +66,19 @@ public class Article implements Serializable {
 
     public void setAmount(Integer amount) {
         this.amount = amount;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public Article client(Client client) {
+        this.client = client;
+        return this;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

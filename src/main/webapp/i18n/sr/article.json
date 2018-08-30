@@ -17,7 +17,8 @@
                 "title": "Article"
             },
             "name": "Name",
-            "amount": "Amount"
+            "amount": "Amount",
+            "client": "Client"
         }
     }
 }
