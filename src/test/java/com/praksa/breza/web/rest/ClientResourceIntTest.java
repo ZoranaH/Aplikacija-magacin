@@ -45,6 +45,12 @@ public class ClientResourceIntTest {
     private static final String DEFAULT_PHONE_NUMBER = "AAAAAAAAAA";
     private static final String UPDATED_PHONE_NUMBER = "BBBBBBBBBB";
 
+    private static final String DEFAULT_ADDRESS = "AAAAAAAAAA";
+    private static final String UPDATED_ADDRESS = "BBBBBBBBBB";
+
+    private static final String DEFAULT_EMAIL = "AAAAAAAAAA";
+    private static final String UPDATED_EMAIL = "BBBBBBBBBB";
+
     @Autowired
     private ClientRepository clientRepository;
 
@@ -85,7 +91,9 @@ public class ClientResourceIntTest {
     public static Client createEntity(EntityManager em) {
         Client client = new Client()
             .name(DEFAULT_NAME)
-            .phoneNumber(DEFAULT_PHONE_NUMBER);
+            .phoneNumber(DEFAULT_PHONE_NUMBER)
+            .address(DEFAULT_ADDRESS)
+            .email(DEFAULT_EMAIL);
         return client;
     }
 
@@ -111,6 +119,8 @@ public class ClientResourceIntTest {
         Client testClient = clientList.get(clientList.size() - 1);
         assertThat(testClient.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testClient.getPhoneNumber()).isEqualTo(DEFAULT_PHONE_NUMBER);
+        assertThat(testClient.getAddress()).isEqualTo(DEFAULT_ADDRESS);
+        assertThat(testClient.getEmail()).isEqualTo(DEFAULT_EMAIL);
     }
 
     @Test
@@ -162,7 +172,9 @@ public class ClientResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(client.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-            .andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DEFAULT_PHONE_NUMBER.toString())));
+            .andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DEFAULT_PHONE_NUMBER.toString())))
+            .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS.toString())))
+            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())));
     }
     
 
@@ -178,7 +190,9 @@ public class ClientResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(client.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
-            .andExpect(jsonPath("$.phoneNumber").value(DEFAULT_PHONE_NUMBER.toString()));
+            .andExpect(jsonPath("$.phoneNumber").value(DEFAULT_PHONE_NUMBER.toString()))
+            .andExpect(jsonPath("$.address").value(DEFAULT_ADDRESS.toString()))
+            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()));
     }
     @Test
     @Transactional
@@ -202,7 +216,9 @@ public class ClientResourceIntTest {
         em.detach(updatedClient);
         updatedClient
             .name(UPDATED_NAME)
-            .phoneNumber(UPDATED_PHONE_NUMBER);
+            .phoneNumber(UPDATED_PHONE_NUMBER)
+            .address(UPDATED_ADDRESS)
+            .email(UPDATED_EMAIL);
 
         restClientMockMvc.perform(put("/api/clients")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -215,6 +231,8 @@ public class ClientResourceIntTest {
         Client testClient = clientList.get(clientList.size() - 1);
         assertThat(testClient.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testClient.getPhoneNumber()).isEqualTo(UPDATED_PHONE_NUMBER);
+        assertThat(testClient.getAddress()).isEqualTo(UPDATED_ADDRESS);
+        assertThat(testClient.getEmail()).isEqualTo(UPDATED_EMAIL);
     }
 
     @Test

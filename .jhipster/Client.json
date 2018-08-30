@@ -13,6 +13,14 @@
         {
             "fieldName": "phoneNumber",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "address",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "email",
+            "fieldType": "String"
         }
     ],
     "changelogDate": "20180830095003",

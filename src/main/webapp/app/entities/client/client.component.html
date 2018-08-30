@@ -17,6 +17,8 @@
             <th><span jhiTranslate="global.field.id">ID</span></th>
             <th><span jhiTranslate="brezaApp.client.name">Name</span></th>
             <th><span jhiTranslate="brezaApp.client.phoneNumber">Phone Number</span></th>
+            <th><span jhiTranslate="brezaApp.client.address">Address</span></th>
+            <th><span jhiTranslate="brezaApp.client.email">Email</span></th>
             <th></th>
             </tr>
             </thead>
@@ -25,6 +27,8 @@
                 <td><a [routerLink]="['/client', client.id, 'view' ]">{{client.id}}</a></td>
                 <td>{{client.name}}</td>
                 <td>{{client.phoneNumber}}</td>
+                <td>{{client.address}}</td>
+                <td>{{client.email}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

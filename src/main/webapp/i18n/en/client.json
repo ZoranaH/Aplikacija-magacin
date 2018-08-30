@@ -17,7 +17,9 @@
                 "title": "Client"
             },
             "name": "Name",
-            "phoneNumber": "Phone Number"
+            "phoneNumber": "Phone Number",
+            "address": "Address",
+            "email": "Email"
         }
     }
 }
