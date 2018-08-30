@@ -1,0 +1,25 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "salary",
+            "fieldType": "Double"
+        }
+    ],
+    "changelogDate": "20180830103134",
+    "dto": "no",
+    "searchEngine": false,
+    "service": "no",
+    "entityTableName": "employee",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no"
+}
