@@ -43,6 +43,13 @@
                         <option [ngValue]="clientOption.id === article.client?.id ? article.client : clientOption" *ngFor="let clientOption of clients; trackBy: trackClientById">{{clientOption.name}}</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="brezaApp.article.employee" for="field_employee">Employee</label>
+                    <select class="form-control" id="field_employee" name="employee" [(ngModel)]="article.employee" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="employeeOption.id === article.employee?.id ? article.employee : employeeOption" *ngFor="let employeeOption of employees; trackBy: trackEmployeeById">{{employeeOption.name}}</option>
+                    </select>
+                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

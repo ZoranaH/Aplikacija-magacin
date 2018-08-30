@@ -18,7 +18,8 @@
             },
             "name": "Name",
             "amount": "Amount",
-            "client": "Client"
+            "client": "Client",
+            "employee": "Employee"
         }
     }
 }

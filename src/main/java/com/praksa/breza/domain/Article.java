@@ -33,6 +33,10 @@ public class Article implements Serializable {
     @JsonIgnoreProperties("")
     private Client client;
 
+    @ManyToOne
+    @JsonIgnoreProperties("")
+    private Employee employee;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -79,6 +83,19 @@ public class Article implements Serializable {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public Article employee(Employee employee) {
+        this.employee = employee;
+        return this;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

@@ -19,6 +19,12 @@
                         <a [routerLink]="['/client', article.client?.id, 'view']">{{article.client?.name}}</a>
                     </div>
                 </dd>
+                <dt><span jhiTranslate="brezaApp.article.employee">Employee</span></dt>
+                <dd>
+                    <div *ngIf="article.employee">
+                        <a [routerLink]="['/employee', article.employee?.id, 'view']">{{article.employee?.name}}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"

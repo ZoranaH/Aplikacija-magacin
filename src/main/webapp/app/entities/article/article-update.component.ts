@@ -8,6 +8,8 @@ import { IArticle } from 'app/shared/model/article.model';
 import { ArticleService } from './article.service';
 import { IClient } from 'app/shared/model/client.model';
 import { ClientService } from 'app/entities/client';
+import { IEmployee } from 'app/shared/model/employee.model';
+import { EmployeeService } from 'app/entities/employee';
 
 @Component({
     selector: 'jhi-article-update',
@@ -19,10 +21,13 @@ export class ArticleUpdateComponent implements OnInit {
 
     clients: IClient[];
 
+    employees: IEmployee[];
+
     constructor(
         private jhiAlertService: JhiAlertService,
         private articleService: ArticleService,
         private clientService: ClientService,
+        private employeeService: EmployeeService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -34,6 +39,12 @@ export class ArticleUpdateComponent implements OnInit {
         this.clientService.query().subscribe(
             (res: HttpResponse<IClient[]>) => {
                 this.clients = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.employeeService.query().subscribe(
+            (res: HttpResponse<IEmployee[]>) => {
+                this.employees = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -70,6 +81,10 @@ export class ArticleUpdateComponent implements OnInit {
     }
 
     trackClientById(index: number, item: IClient) {
+        return item.id;
+    }
+
+    trackEmployeeById(index: number, item: IEmployee) {
         return item.id;
     }
     get article() {
