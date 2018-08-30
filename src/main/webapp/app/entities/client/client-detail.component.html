@@ -21,6 +21,12 @@
                 <dd>
                     <span>{{client.email}}</span>
                 </dd>
+                <dt><span jhiTranslate="brezaApp.client.city">City</span></dt>
+                <dd>
+                    <div *ngIf="client.city">
+                        <a [routerLink]="['/city', client.city?.id, 'view']">{{client.city?.name}}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"

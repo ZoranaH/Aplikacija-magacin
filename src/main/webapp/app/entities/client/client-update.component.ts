@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { JhiAlertService } from 'ng-jhipster';
 
 import { IClient } from 'app/shared/model/client.model';
 import { ClientService } from './client.service';
+import { ICity } from 'app/shared/model/city.model';
+import { CityService } from 'app/entities/city';
 
 @Component({
     selector: 'jhi-client-update',
@@ -14,13 +17,26 @@ export class ClientUpdateComponent implements OnInit {
     private _client: IClient;
     isSaving: boolean;
 
-    constructor(private clientService: ClientService, private activatedRoute: ActivatedRoute) {}
+    cities: ICity[];
+
+    constructor(
+        private jhiAlertService: JhiAlertService,
+        private clientService: ClientService,
+        private cityService: CityService,
+        private activatedRoute: ActivatedRoute
+    ) {}
 
     ngOnInit() {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ client }) => {
             this.client = client;
         });
+        this.cityService.query().subscribe(
+            (res: HttpResponse<ICity[]>) => {
+                this.cities = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 
     previousState() {
@@ -47,6 +63,14 @@ export class ClientUpdateComponent implements OnInit {
 
     private onSaveError() {
         this.isSaving = false;
+    }
+
+    private onError(errorMessage: string) {
+        this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    trackCityById(index: number, item: ICity) {
+        return item.id;
     }
     get client() {
         return this._client;

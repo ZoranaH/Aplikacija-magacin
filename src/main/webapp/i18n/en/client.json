@@ -19,7 +19,8 @@
             "name": "Name",
             "phoneNumber": "Phone Number",
             "address": "Address",
-            "email": "Email"
+            "email": "Email",
+            "city": "City"
         }
     }
 }
