@@ -9,21 +9,17 @@
                 <dd>
                     <span>{{article.name}}</span>
                 </dd>
-                <dt><span jhiTranslate="brezaApp.article.amount">Amount</span></dt>
+                <dt><span jhiTranslate="brezaApp.article.articleNumber">Article Number</span></dt>
                 <dd>
-                    <span>{{article.amount}}</span>
+                    <span>{{article.articleNumber}}</span>
                 </dd>
-                <dt><span jhiTranslate="brezaApp.article.client">Client</span></dt>
+                <dt><span jhiTranslate="brezaApp.article.price">Price</span></dt>
                 <dd>
-                    <div *ngIf="article.client">
-                        <a [routerLink]="['/client', article.client?.id, 'view']">{{article.client?.name}}</a>
-                    </div>
+                    <span>{{article.price}}</span>
                 </dd>
-                <dt><span jhiTranslate="brezaApp.article.employee">Employee</span></dt>
+                <dt><span jhiTranslate="brezaApp.article.availableAmount">Available Amount</span></dt>
                 <dd>
-                    <div *ngIf="article.employee">
-                        <a [routerLink]="['/employee', article.employee?.id, 'view']">{{article.employee?.name}}</a>
-                    </div>
+                    <span>{{article.availableAmount}}</span>
                 </dd>
             </dl>
 

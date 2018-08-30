@@ -26,15 +26,15 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="amount" type="integer">
-                <constraints nullable="false" />
-            </column>
-
-            <column name="client_id" type="bigint">
+            <column name="article_number" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
 
-            <column name="employee_id" type="bigint">
+            <column name="price" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="available_amount" type="integer">
                 <constraints nullable="true" />
             </column>
 

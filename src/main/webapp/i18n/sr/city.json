@@ -16,9 +16,7 @@
             "detail": {
                 "title": "City"
             },
-            "name": "Name",
-            "postalCode": "Postal Code",
-            "country": "Country"
+            "name": "Name"
         }
     }
 }

@@ -17,9 +17,9 @@
                 "title": "Article"
             },
             "name": "Name",
-            "amount": "Amount",
-            "client": "Client",
-            "employee": "Employee"
+            "articleNumber": "Article Number",
+            "price": "Price",
+            "availableAmount": "Available Amount"
         }
     }
 }

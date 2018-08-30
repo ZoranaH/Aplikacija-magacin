@@ -9,14 +9,6 @@
             "fieldValidateRules": [
                 "required"
             ]
-        },
-        {
-            "fieldName": "postalCode",
-            "fieldType": "Integer"
-        },
-        {
-            "fieldName": "country",
-            "fieldType": "String"
         }
     ],
     "changelogDate": "20180830094138",

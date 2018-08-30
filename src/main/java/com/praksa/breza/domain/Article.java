@@ -1,6 +1,5 @@
 package com.praksa.breza.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -25,17 +24,14 @@ public class Article implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @NotNull
-    @Column(name = "amount", nullable = false)
-    private Integer amount;
+    @Column(name = "article_number")
+    private String articleNumber;
 
-    @ManyToOne
-    @JsonIgnoreProperties("")
-    private Client client;
+    @Column(name = "price")
+    private Double price;
 
-    @ManyToOne
-    @JsonIgnoreProperties("")
-    private Employee employee;
+    @Column(name = "available_amount")
+    private Integer availableAmount;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -59,43 +55,43 @@ public class Article implements Serializable {
         this.name = name;
     }
 
-    public Integer getAmount() {
-        return amount;
+    public String getArticleNumber() {
+        return articleNumber;
     }
 
-    public Article amount(Integer amount) {
-        this.amount = amount;
+    public Article articleNumber(String articleNumber) {
+        this.articleNumber = articleNumber;
         return this;
     }
 
-    public void setAmount(Integer amount) {
-        this.amount = amount;
+    public void setArticleNumber(String articleNumber) {
+        this.articleNumber = articleNumber;
     }
 
-    public Client getClient() {
-        return client;
+    public Double getPrice() {
+        return price;
     }
 
-    public Article client(Client client) {
-        this.client = client;
+    public Article price(Double price) {
+        this.price = price;
         return this;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public Integer getAvailableAmount() {
+        return availableAmount;
     }
 
-    public Article employee(Employee employee) {
-        this.employee = employee;
+    public Article availableAmount(Integer availableAmount) {
+        this.availableAmount = availableAmount;
         return this;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setAvailableAmount(Integer availableAmount) {
+        this.availableAmount = availableAmount;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -124,7 +120,9 @@ public class Article implements Serializable {
         return "Article{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
-            ", amount=" + getAmount() +
+            ", articleNumber='" + getArticleNumber() + "'" +
+            ", price=" + getPrice() +
+            ", availableAmount=" + getAvailableAmount() +
             "}";
     }
 }
