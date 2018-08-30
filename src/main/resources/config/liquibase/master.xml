@@ -9,6 +9,7 @@
     <include file="config/liquibase/changelog/20180830094138_added_entity_City.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180830095003_added_entity_Client.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180830103134_added_entity_Employee.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20180830144640_added_entity_Position.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20180830084807_added_entity_constraints_Article.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20180830103134_added_entity_constraints_Employee.xml" relativeToChangelogFile="false"/>
