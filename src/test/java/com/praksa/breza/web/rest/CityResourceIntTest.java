@@ -42,6 +42,9 @@ public class CityResourceIntTest {
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
+    private static final Integer DEFAULT_ZIPCODE = 1;
+    private static final Integer UPDATED_ZIPCODE = 2;
+
     @Autowired
     private CityRepository cityRepository;
 
@@ -81,7 +84,8 @@ public class CityResourceIntTest {
      */
     public static City createEntity(EntityManager em) {
         City city = new City()
-            .name(DEFAULT_NAME);
+            .name(DEFAULT_NAME)
+            .zipcode(DEFAULT_ZIPCODE);
         return city;
     }
 
@@ -106,6 +110,7 @@ public class CityResourceIntTest {
         assertThat(cityList).hasSize(databaseSizeBeforeCreate + 1);
         City testCity = cityList.get(cityList.size() - 1);
         assertThat(testCity.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testCity.getZipcode()).isEqualTo(DEFAULT_ZIPCODE);
     }
 
     @Test
@@ -156,7 +161,8 @@ public class CityResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(city.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+            .andExpect(jsonPath("$.[*].zipcode").value(hasItem(DEFAULT_ZIPCODE)));
     }
     
 
@@ -171,7 +177,8 @@ public class CityResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(city.getId().intValue()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()));
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
+            .andExpect(jsonPath("$.zipcode").value(DEFAULT_ZIPCODE));
     }
     @Test
     @Transactional
@@ -194,7 +201,8 @@ public class CityResourceIntTest {
         // Disconnect from session so that the updates on updatedCity are not directly saved in db
         em.detach(updatedCity);
         updatedCity
-            .name(UPDATED_NAME);
+            .name(UPDATED_NAME)
+            .zipcode(UPDATED_ZIPCODE);
 
         restCityMockMvc.perform(put("/api/cities")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -206,6 +214,7 @@ public class CityResourceIntTest {
         assertThat(cityList).hasSize(databaseSizeBeforeUpdate);
         City testCity = cityList.get(cityList.size() - 1);
         assertThat(testCity.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testCity.getZipcode()).isEqualTo(UPDATED_ZIPCODE);
     }
 
     @Test

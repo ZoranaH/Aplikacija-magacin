@@ -26,6 +26,10 @@
                 <constraints nullable="false" />
             </column>
 
+            <column name="zipcode" type="integer">
+                <constraints nullable="true" />
+            </column>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         

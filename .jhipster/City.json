@@ -9,6 +9,10 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "zipcode",
+            "fieldType": "Integer"
         }
     ],
     "changelogDate": "20180830094138",

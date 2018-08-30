@@ -16,7 +16,8 @@
             "detail": {
                 "title": "City"
             },
-            "name": "Name"
+            "name": "Name",
+            "zipcode": "Zipcode"
         }
     }
 }
