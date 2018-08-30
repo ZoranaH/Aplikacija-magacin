@@ -16,9 +16,8 @@
             "detail": {
                 "title": "Employee"
             },
-            "name": "Name",
-            "salary": "Salary",
-            "city": "City"
+            "firstName": "First Name",
+            "lastName": "Last Name"
         }
     }
 }

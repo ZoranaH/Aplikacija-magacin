@@ -5,19 +5,13 @@
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="brezaApp.employee.name">Name</span></dt>
+                <dt><span jhiTranslate="brezaApp.employee.firstName">First Name</span></dt>
                 <dd>
-                    <span>{{employee.name}}</span>
+                    <span>{{employee.firstName}}</span>
                 </dd>
-                <dt><span jhiTranslate="brezaApp.employee.salary">Salary</span></dt>
+                <dt><span jhiTranslate="brezaApp.employee.lastName">Last Name</span></dt>
                 <dd>
-                    <span>{{employee.salary}}</span>
-                </dd>
-                <dt><span jhiTranslate="brezaApp.employee.city">City</span></dt>
-                <dd>
-                    <div *ngIf="employee.city">
-                        <a [routerLink]="['/city', employee.city?.id, 'view']">{{employee.city?.name}}</a>
-                    </div>
+                    <span>{{employee.lastName}}</span>
                 </dd>
             </dl>
 

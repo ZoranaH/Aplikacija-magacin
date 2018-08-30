@@ -1,9 +1,7 @@
 package com.praksa.breza.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -21,16 +19,11 @@ public class Employee implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "first_name")
+    private String firstName;
 
-    @Column(name = "salary")
-    private Double salary;
-
-    @ManyToOne
-    @JsonIgnoreProperties("")
-    private City city;
+    @Column(name = "last_name")
+    private String lastName;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -41,43 +34,30 @@ public class Employee implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public Employee name(String name) {
-        this.name = name;
+    public Employee firstName(String firstName) {
+        this.firstName = firstName;
         return this;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public Double getSalary() {
-        return salary;
+    public String getLastName() {
+        return lastName;
     }
 
-    public Employee salary(Double salary) {
-        this.salary = salary;
+    public Employee lastName(String lastName) {
+        this.lastName = lastName;
         return this;
     }
 
-    public void setSalary(Double salary) {
-        this.salary = salary;
-    }
-
-    public City getCity() {
-        return city;
-    }
-
-    public Employee city(City city) {
-        this.city = city;
-        return this;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -105,8 +85,8 @@ public class Employee implements Serializable {
     public String toString() {
         return "Employee{" +
             "id=" + getId() +
-            ", name='" + getName() + "'" +
-            ", salary=" + getSalary() +
+            ", firstName='" + getFirstName() + "'" +
+            ", lastName='" + getLastName() + "'" +
             "}";
     }
 }

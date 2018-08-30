@@ -1,25 +1,15 @@
 {
     "fluentMethods": true,
     "clientRootFolder": "",
-    "relationships": [
-        {
-            "relationshipName": "city",
-            "otherEntityName": "city",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "name"
-        }
-    ],
+    "relationships": [],
     "fields": [
         {
-            "fieldName": "name",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldName": "firstName",
+            "fieldType": "String"
         },
         {
-            "fieldName": "salary",
-            "fieldType": "Double"
+            "fieldName": "lastName",
+            "fieldType": "String"
         }
     ],
     "changelogDate": "20180830103134",
