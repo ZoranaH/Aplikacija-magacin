@@ -17,6 +17,7 @@
             <th><span jhiTranslate="global.field.id">ID</span></th>
             <th><span jhiTranslate="brezaApp.employee.name">Name</span></th>
             <th><span jhiTranslate="brezaApp.employee.salary">Salary</span></th>
+            <th><span jhiTranslate="brezaApp.employee.city">City</span></th>
             <th></th>
             </tr>
             </thead>
@@ -25,6 +26,11 @@
                 <td><a [routerLink]="['/employee', employee.id, 'view' ]">{{employee.id}}</a></td>
                 <td>{{employee.name}}</td>
                 <td>{{employee.salary}}</td>
+                <td>
+                    <div *ngIf="employee.city">
+                        <a [routerLink]="['../city', employee.city?.id, 'view' ]" >{{employee.city?.name}}</a>
+                    </div>
+                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

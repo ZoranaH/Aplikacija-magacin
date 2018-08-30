@@ -17,7 +17,8 @@
                 "title": "Employee"
             },
             "name": "Name",
-            "salary": "Salary"
+            "salary": "Salary",
+            "city": "City"
         }
     }
 }
