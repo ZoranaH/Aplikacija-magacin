@@ -1,9 +1,21 @@
 id;name;article_number;price;available_amount;type_id
-1;Hammer;3456;25;190;1
-2;Red shoes high heel;2341;55;32;3
+1;Hammer;3456;25.50;190;1
+2;Red high heel shoes;2341;55;32;3
 3;The Utility Knife;1221;12;77;1
 4;Desk;9080;123;23;2
 5;Refrigerator;7467;345;99;4
-6;Black shoes high heel;4563; 67;22;3
+6;Black high heel shoes ;4563; 67;22;3
 7;Pilers;2333;23;198;1
 8;Chair;7656;78;77;2
+9;Dishwasher;3409;310;44;4
+10;Footstool;8456;99.99;102;2
+11;Sneakers;8979;123;32;3
+12;Saw;3564;24.50;240;1
+13;MicroWave;7894;150;104;4
+14;Ottoman;9023;233.00;11;2
+15;Screwdrivers set;3012;77;590;1
+16;Black mid heel shoes;4323;78;34;3
+17;Stove;7656;189.50;78;4
+18;Ballast Multi-Tool ;3543;63;56;1
+19;Waterbed;9876;670;5;2
+20;Sofa bed;9090;540;9;2
