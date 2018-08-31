@@ -47,7 +47,7 @@
         
     </changeSet>
 
-    <changeSet author="liquibase-docs" id="loadData-example">
+    <changeSet author="zorana" id="loadData-client">
         <loadData encoding="UTF-8"
             file="config/liquibase/client.csv"
             separator=";"

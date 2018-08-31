@@ -34,7 +34,7 @@
         </createTable>
         
     </changeSet>
-    <changeSet author="liquibase-docs" id="loadData-example">
+    <changeSet author="zorana" id="loadData-city">
         <loadData encoding="UTF-8"
             file="config/liquibase/city.csv"
             separator=";"

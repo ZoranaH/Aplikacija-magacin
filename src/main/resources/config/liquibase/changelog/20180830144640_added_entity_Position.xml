@@ -30,5 +30,12 @@
         </createTable>
         
     </changeSet>
+
+    <changeSet author="zorana" id="loadData-position">
+        <loadData encoding="UTF-8"
+            file="config/liquibase/position.csv"
+            separator=";"
+            tableName="position"/>
+    </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>
