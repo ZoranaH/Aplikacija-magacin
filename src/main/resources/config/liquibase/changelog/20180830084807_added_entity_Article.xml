@@ -46,5 +46,12 @@
         </createTable>
         
     </changeSet>
+
+    <changeSet author="liquibase-docs" id="loadData-example">
+        <loadData encoding="UTF-8"
+            file="config/liquibase/article.csv"
+            separator=";"
+            tableName="article"/>
+    </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>

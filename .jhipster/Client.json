@@ -6,6 +6,9 @@
             "relationshipName": "city",
             "otherEntityName": "city",
             "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
             "otherEntityField": "name"
         }
     ],
