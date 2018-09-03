@@ -33,9 +33,8 @@ export class ClientComponent implements OnInit, OnDestroy {
             email: {
                 title: 'Email'
             },
-            city: {
-                title: 'City',
-                valuePrepareFunction: city => city.name
+            cityName: {
+                title: 'City'
             }
         }
     };
@@ -52,7 +51,11 @@ export class ClientComponent implements OnInit, OnDestroy {
         this.clientService.query().subscribe(
             (res: HttpResponse<IClient[]>) => {
                 this.clients = res.body;
-                this.data = new LocalDataSource(res.body);
+                this.data = new LocalDataSource();
+                for (const city of res.body) {
+                    city.cityName = city.city.name;
+                    this.data.add(city);
+                }
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
