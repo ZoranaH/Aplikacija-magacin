@@ -1,16 +1,16 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="brezaApp.employee.home.title">Employees</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-employee" [routerLink]="['/employee/new']">
+        <!-- <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-employee" [routerLink]="['/employee/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span  jhiTranslate="brezaApp.employee.home.createLabel">
             Create new Employee
             </span>
-        </button>
+        </button> -->
     </h2>
     <jhi-alert></jhi-alert>
     <br/>
-    <div class="table-responsive" *ngIf="employees">
+    <!-- <div class="table-responsive" *ngIf="employees">
         <table class="table table-striped">
             <thead>
             <tr>
@@ -58,5 +58,6 @@
             </tr>
             </tbody>
         </table>
-    </div>
+    </div> -->
+    <ng2-smart-table [settings]="settings" [source]="data"></ng2-smart-table>
 </div>
