@@ -1,6 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { BrezaSharedModule } from 'app/shared';
 import {
     PositionComponent,
@@ -15,7 +15,7 @@ import {
 const ENTITY_STATES = [...positionRoute, ...positionPopupRoute];
 
 @NgModule({
-    imports: [BrezaSharedModule, RouterModule.forChild(ENTITY_STATES)],
+    imports: [BrezaSharedModule, RouterModule.forChild(ENTITY_STATES), Ng2SmartTableModule],
     declarations: [
         PositionComponent,
         PositionDetailComponent,
