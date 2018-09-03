@@ -28,7 +28,8 @@ export class EmployeeComponent implements OnInit, OnDestroy {
                 title: 'Last Name'
             },
             position: {
-                title: 'Position'
+                title: 'Position',
+                valuePrepareFunction: position => position.name
             }
         }
     };

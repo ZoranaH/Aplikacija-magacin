@@ -34,7 +34,8 @@ export class ArticleComponent implements OnInit, OnDestroy {
                 title: 'Available Amount'
             },
             type: {
-                title: 'Type'
+                title: 'Type',
+                valuePrepareFunction: type => type.name
             }
         }
     };
