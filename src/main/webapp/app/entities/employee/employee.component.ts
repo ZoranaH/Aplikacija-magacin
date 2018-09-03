@@ -21,11 +21,8 @@ export class EmployeeComponent implements OnInit, OnDestroy {
             id: {
                 title: 'ID'
             },
-            firstName: {
-                title: 'First Name'
-            },
-            lastName: {
-                title: 'Last Name'
+            fullName: {
+                title: 'Full Name'
             },
             positionName: {
                 title: 'Position'
@@ -48,6 +45,7 @@ export class EmployeeComponent implements OnInit, OnDestroy {
                 this.data = new LocalDataSource();
                 for (const position of res.body) {
                     position.positionName = position.position.name;
+                    position.fullName = position.firstName + ' ' + position.lastName;
                     this.data.add(position);
                 }
             },

@@ -6,6 +6,7 @@ export interface IEmployee {
     lastName?: string;
     position?: IPosition;
     positionName?: string;
+    fullName?: string;
 }
 
 export class Employee implements IEmployee {
