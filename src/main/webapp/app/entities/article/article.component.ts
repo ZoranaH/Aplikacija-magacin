@@ -17,9 +17,14 @@ export class ArticleComponent implements OnInit, OnDestroy {
     currentAccount: any;
     eventSubscriber: Subscription;
     settings = {
+        actions: {
+            edit: false
+        },
         columns: {
             id: {
-                title: 'ID'
+                title: 'ID',
+                editable: false,
+                addable: false
             },
             name: {
                 title: 'Name'
@@ -53,10 +58,14 @@ export class ArticleComponent implements OnInit, OnDestroy {
                 this.articles = res.body;
                 this.data = new LocalDataSource();
                 for (const article of res.body) {
-                    if (article.type.name) {
+                    if (article.type !== null) {
                         article.articleType = article.type.name;
                         this.data.add(article);
                         console.log('uslo');
+                    } else {
+                        article.articleType = '...';
+                        this.data.add(article);
+                        console.log('null je');
                     }
                 }
             },

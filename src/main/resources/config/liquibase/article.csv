@@ -1,7 +1,7 @@
 id;name;article_number;price;available_amount;type_id
 1;Hammer;3456;25.50;190;1
 2;Red high heel shoes;2341;55;32;3
-3;The Utility Knife;1221;12;77;1
+3;The Utility Knife;1221;12;77;null
 4;Desk;9080;123;23;2
 5;Refrigerator;7467;345;99;4
 6;Black high heel shoes ;4563; 67;22;3
