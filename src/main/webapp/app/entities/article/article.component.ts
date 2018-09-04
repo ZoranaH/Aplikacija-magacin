@@ -7,6 +7,7 @@ import { IArticle } from 'app/shared/model/article.model';
 import { Principal } from 'app/core';
 import { ArticleService } from './article.service';
 import { LocalDataSource } from 'ng2-smart-table';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'jhi-article',
@@ -17,8 +18,16 @@ export class ArticleComponent implements OnInit, OnDestroy {
     currentAccount: any;
     eventSubscriber: Subscription;
     settings = {
+        mode: 'external',
         actions: {
-            edit: false
+            edit: false,
+            delete: false,
+            custom: [{ name: 'View', title: 'View ' }, { name: 'Edit', title: 'Edit ' }, { name: 'Delete', title: 'Delete' }]
+        },
+        add: {
+            addButtonContent: '<class="nb-plus">Add New Article</i>'
+            // createButtonContent: '<i class="nb-checkmark"></i>',
+            // cancelButtonContent: '<i class="nb-close"></i>',
         },
         columns: {
             id: {
@@ -49,7 +58,8 @@ export class ArticleComponent implements OnInit, OnDestroy {
         private articleService: ArticleService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
-        private principal: Principal
+        private principal: Principal,
+        private router: Router
     ) {}
 
     loadAll() {
@@ -61,11 +71,9 @@ export class ArticleComponent implements OnInit, OnDestroy {
                     if (article.type !== null) {
                         article.articleType = article.type.name;
                         this.data.add(article);
-                        console.log('uslo');
                     } else {
                         article.articleType = '...';
                         this.data.add(article);
-                        console.log('null je');
                     }
                 }
             },
@@ -94,5 +102,22 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    addNew(event) {
+        this.router.navigate(['article/new']);
+    }
+
+    addCustom(event) {
+        if (event.action === 'View') {
+            this.router.navigate(['article/' + event.data.id + '/view']);
+            console.log(event);
+        } else if (event.action === 'Delete') {
+            this.router.navigate(['/', { outlets: { popup: 'article/' + event.data.id + '/delete' } }]);
+            console.log(event);
+        } else if (event.action === 'Edit') {
+            this.router.navigate(['article/' + event.data.id + '/edit']);
+            console.log(event);
+        }
     }
 }
