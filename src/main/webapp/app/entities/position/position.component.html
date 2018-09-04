@@ -51,5 +51,4 @@
             </tbody>
         </table>
     </div> -->
-    <ng2-smart-table [settings]="settings" [source]="data"></ng2-smart-table>
-</div>
+    <ng2-smart-table [settings]="settings" [source]="data" (create)="addNew($event)" (custom)="addCustom($event)"></ng2-smart-table></div>

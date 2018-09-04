@@ -7,6 +7,7 @@ import { IPosition } from 'app/shared/model/position.model';
 import { Principal } from 'app/core';
 import { PositionService } from './position.service';
 import { LocalDataSource } from 'ng2-smart-table';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'jhi-position',
@@ -17,6 +18,12 @@ export class PositionComponent implements OnInit, OnDestroy {
     currentAccount: any;
     eventSubscriber: Subscription;
     settings = {
+        mode: 'external',
+        actions: {
+            edit: false,
+            delete: false,
+            custom: [{ name: 'View', title: 'View ' }, { name: 'Edit', title: 'Edit ' }, { name: 'Delete', title: 'Delete' }]
+        },
         columns: {
             id: {
                 title: 'ID'
@@ -32,7 +39,8 @@ export class PositionComponent implements OnInit, OnDestroy {
         private positionService: PositionService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
-        private principal: Principal
+        private principal: Principal,
+        private router: Router
     ) {}
 
     loadAll() {
@@ -67,5 +75,22 @@ export class PositionComponent implements OnInit, OnDestroy {
 
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    addNew(event) {
+        this.router.navigate(['position/new']);
+    }
+
+    addCustom(event) {
+        if (event.action === 'View') {
+            this.router.navigate(['position/' + event.data.id + '/view']);
+            console.log(event);
+        } else if (event.action === 'Delete') {
+            this.router.navigate(['/', { outlets: { popup: 'position/' + event.data.id + '/delete' } }]);
+            console.log(event);
+        } else if (event.action === 'Edit') {
+            this.router.navigate(['position/' + event.data.id + '/edit']);
+            console.log(event);
+        }
     }
 }

@@ -7,6 +7,7 @@ import { IEmployee } from 'app/shared/model/employee.model';
 import { Principal } from 'app/core';
 import { EmployeeService } from './employee.service';
 import { LocalDataSource } from 'ng2-smart-table';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'jhi-employee',
@@ -17,6 +18,12 @@ export class EmployeeComponent implements OnInit, OnDestroy {
     currentAccount: any;
     eventSubscriber: Subscription;
     settings = {
+        mode: 'external',
+        actions: {
+            edit: false,
+            delete: false,
+            custom: [{ name: 'View', title: 'View ' }, { name: 'Edit', title: 'Edit ' }, { name: 'Delete', title: 'Delete' }]
+        },
         columns: {
             id: {
                 title: 'ID'
@@ -35,7 +42,8 @@ export class EmployeeComponent implements OnInit, OnDestroy {
         private employeeService: EmployeeService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
-        private principal: Principal
+        private principal: Principal,
+        private router: Router
     ) {}
 
     loadAll() {
@@ -75,5 +83,22 @@ export class EmployeeComponent implements OnInit, OnDestroy {
 
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    addNew(event) {
+        this.router.navigate(['employee/new']);
+    }
+
+    addCustom(event) {
+        if (event.action === 'View') {
+            this.router.navigate(['employee/' + event.data.id + '/view']);
+            console.log(event);
+        } else if (event.action === 'Delete') {
+            this.router.navigate(['/', { outlets: { popup: 'employee/' + event.data.id + '/delete' } }]);
+            console.log(event);
+        } else if (event.action === 'Edit') {
+            this.router.navigate(['employee/' + event.data.id + '/edit']);
+            console.log(event);
+        }
     }
 }
