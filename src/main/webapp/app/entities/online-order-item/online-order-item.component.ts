@@ -34,10 +34,10 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
             itemPrice: {
                 title: 'Item Price'
             },
-            onlineOrder: {
+            onlineOrderName: {
                 title: 'Online Order'
             },
-            article: {
+            articleName: {
                 title: 'Article'
             }
         }
@@ -56,7 +56,20 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
         this.onlineOrderItemService.query().subscribe(
             (res: HttpResponse<IOnlineOrderItem[]>) => {
                 this.onlineOrderItems = res.body;
-                this.data = new LocalDataSource(res.body);
+                this.data = new LocalDataSource();
+                for (const onlineOrder of res.body) {
+                    if (onlineOrder.onlineOrder !== null) {
+                        onlineOrder.onlineOrderName = onlineOrder.onlineOrder.id;
+                    } else {
+                        onlineOrder.onlineOrderName = 0;
+                    }
+                    if (onlineOrder.article.name !== null) {
+                        onlineOrder.articleName = onlineOrder.article.name;
+                    } else {
+                        onlineOrder.articleName = '...';
+                    }
+                    this.data.add(onlineOrder);
+                }
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
