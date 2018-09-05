@@ -42,5 +42,12 @@
         </createTable>
         
     </changeSet>
+
+    <changeSet author="zorana" id="loadData-online_order_item">
+        <loadData encoding="UTF-8"
+            file="config/liquibase/onlineOrderItem.csv"
+            separator=";"
+            tableName="online_order_item"/>
+    </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>
