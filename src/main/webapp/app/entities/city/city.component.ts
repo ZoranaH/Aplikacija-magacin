@@ -97,7 +97,9 @@ export class CityComponent implements OnInit, OnDestroy {
         }
     }
 
-    myFunction() {
-        alert('Hello hellloooooooo');
+    sayHello() {
+        setTimeout(() => {
+            alert('Helloooo!!!');
+        }, 0);
     }
 }
