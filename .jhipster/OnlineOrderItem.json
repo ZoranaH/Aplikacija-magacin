@@ -20,6 +20,13 @@
             "relationshipName": "onlineOrder",
             "otherEntityName": "onlineOrder",
             "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "article",
+            "otherEntityName": "article",
+            "otherEntityField": "name"
         }
     ],
     "changelogDate": "20180905093832",

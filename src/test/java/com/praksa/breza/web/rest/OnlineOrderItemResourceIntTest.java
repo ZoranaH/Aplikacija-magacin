@@ -4,6 +4,7 @@ import com.praksa.breza.BrezaApp;
 
 import com.praksa.breza.domain.OnlineOrderItem;
 import com.praksa.breza.domain.OnlineOrder;
+import com.praksa.breza.domain.Article;
 import com.praksa.breza.repository.OnlineOrderItemRepository;
 import com.praksa.breza.web.rest.errors.ExceptionTranslator;
 
@@ -92,6 +93,11 @@ public class OnlineOrderItemResourceIntTest {
         em.persist(onlineOrder);
         em.flush();
         onlineOrderItem.setOnlineOrder(onlineOrder);
+        // Add required entity
+        Article article = ArticleResourceIntTest.createEntity(em);
+        em.persist(article);
+        em.flush();
+        onlineOrderItem.setArticle(article);
         return onlineOrderItem;
     }
 

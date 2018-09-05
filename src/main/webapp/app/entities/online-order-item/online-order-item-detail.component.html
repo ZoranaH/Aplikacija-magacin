@@ -19,6 +19,12 @@
                         <a [routerLink]="['/online-order', onlineOrderItem.onlineOrder?.id, 'view']">{{onlineOrderItem.onlineOrder?.id}}</a>
                     </div>
                 </dd>
+                <dt><span jhiTranslate="brezaApp.onlineOrderItem.article">Article</span></dt>
+                <dd>
+                    <div *ngIf="onlineOrderItem.article">
+                        <a [routerLink]="['/article', onlineOrderItem.article?.id, 'view']">{{onlineOrderItem.article?.name}}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"

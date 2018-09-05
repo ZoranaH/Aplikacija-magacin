@@ -33,6 +33,11 @@ public class OnlineOrderItem implements Serializable {
     @JsonIgnoreProperties("")
     private OnlineOrder onlineOrder;
 
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties("")
+    private Article article;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -79,6 +84,19 @@ public class OnlineOrderItem implements Serializable {
 
     public void setOnlineOrder(OnlineOrder onlineOrder) {
         this.onlineOrder = onlineOrder;
+    }
+
+    public Article getArticle() {
+        return article;
+    }
+
+    public OnlineOrderItem article(Article article) {
+        this.article = article;
+        return this;
+    }
+
+    public void setArticle(Article article) {
+        this.article = article;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
