@@ -39,6 +39,9 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
             },
             articleName: {
                 title: 'Article'
+            },
+            articlePrice: {
+                title: 'Article price'
             }
         }
     };
@@ -67,6 +70,12 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
                         onlineOrder.articleName = onlineOrder.article.name;
                     } else {
                         onlineOrder.articleName = '...';
+                    }
+                    if (onlineOrder.article.price !== null) {
+                        onlineOrder.itemPrice = onlineOrder.article.price * onlineOrder.orderedAmount;
+                        onlineOrder.articlePrice = onlineOrder.article.price;
+                    } else {
+                        onlineOrder.itemPrice = 0;
                     }
                     this.data.add(onlineOrder);
                 }
