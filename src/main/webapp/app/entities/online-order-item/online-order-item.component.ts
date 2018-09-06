@@ -7,7 +7,7 @@ import { IOnlineOrderItem } from 'app/shared/model/online-order-item.model';
 import { Principal } from 'app/core';
 import { OnlineOrderItemService } from './online-order-item.service';
 import { LocalDataSource } from 'ng2-smart-table';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'jhi-online-order-item',
@@ -46,13 +46,15 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
         }
     };
     data: LocalDataSource;
+    idOfItem: number;
 
     constructor(
         private onlineOrderItemService: OnlineOrderItemService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
         private principal: Principal,
-        private router: Router
+        private router: Router,
+        private activatedRoute: ActivatedRoute
     ) {}
 
     loadAll() {
@@ -77,7 +79,11 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
                     } else {
                         onlineOrder.itemPrice = 0;
                     }
-                    this.data.add(onlineOrder);
+                    if (onlineOrder.id === this.idOfItem) {
+                        this.data.add(onlineOrder);
+                    } else if (this.idOfItem === undefined) {
+                        this.data.add(onlineOrder);
+                    }
                 }
             },
             (res: HttpErrorResponse) => this.onError(res.message)
@@ -90,6 +96,9 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
             this.currentAccount = account;
         });
         this.registerChangeInOnlineOrderItems();
+        if (this.activatedRoute.snapshot.params['id']) {
+            this.idOfItem = +this.activatedRoute.snapshot.params['id'];
+        }
     }
 
     ngOnDestroy() {
