@@ -1,3 +1,4 @@
+import { OnlineOrderItemService } from './../online-order-item/online-order-item.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
@@ -46,6 +47,7 @@ export class OnlineOrderComponent implements OnInit, OnDestroy {
         }
     };
     data: LocalDataSource;
+    isHidden: boolean;
 
     constructor(
         private onlineOrderService: OnlineOrderService,

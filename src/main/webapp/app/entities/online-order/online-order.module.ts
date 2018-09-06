@@ -1,3 +1,5 @@
+import { BrezaOnlineOrderItemModule } from './../online-order-item/online-order-item.module';
+import { OnlineOrderItem } from 'app/shared/model/online-order-item.model';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
@@ -15,7 +17,7 @@ import {
 const ENTITY_STATES = [...onlineOrderRoute, ...onlineOrderPopupRoute];
 
 @NgModule({
-    imports: [BrezaSharedModule, RouterModule.forChild(ENTITY_STATES), Ng2SmartTableModule],
+    imports: [BrezaSharedModule, RouterModule.forChild(ENTITY_STATES), Ng2SmartTableModule, BrezaOnlineOrderItemModule],
     declarations: [
         OnlineOrderComponent,
         OnlineOrderDetailComponent,
