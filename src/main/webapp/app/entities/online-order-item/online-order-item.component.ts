@@ -58,7 +58,7 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
     ) {}
 
     loadAll() {
-        this.onlineOrderItemService.query().subscribe(
+        this.onlineOrderItemService.findByOnlineOrder(this.idOfItem).subscribe(
             (res: HttpResponse<IOnlineOrderItem[]>) => {
                 this.onlineOrderItems = res.body;
                 this.data = new LocalDataSource();
@@ -79,11 +79,13 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
                     } else {
                         onlineOrder.itemPrice = 0;
                     }
-                    if (onlineOrder.id === this.idOfItem) {
-                        this.data.add(onlineOrder);
-                    } else if (this.idOfItem === undefined) {
-                        this.data.add(onlineOrder);
-                    }
+                    // if (onlineOrder.onlineOrder.id === this.idOfItem) {
+                    //     this.data.add(onlineOrder);
+                    // } else if (this.idOfItem === undefined) {
+                    //     this.data.add(onlineOrder);
+                    // }
+                    this.data.add(onlineOrder);
+                    console.log('vrednost je ' + onlineOrder.onlineOrder.id);
                 }
             },
             (res: HttpErrorResponse) => this.onError(res.message)
@@ -91,14 +93,14 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        if (this.activatedRoute.snapshot.params['id']) {
+            this.idOfItem = +this.activatedRoute.snapshot.params['id'];
+        }
         this.loadAll();
         this.principal.identity().then(account => {
             this.currentAccount = account;
         });
         this.registerChangeInOnlineOrderItems();
-        if (this.activatedRoute.snapshot.params['id']) {
-            this.idOfItem = +this.activatedRoute.snapshot.params['id'];
-        }
     }
 
     ngOnDestroy() {
