@@ -117,4 +117,18 @@ public class OnlineOrderItemResource {
         onlineOrderItemRepository.deleteById(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
+    /**
+     * GET  /online-order-items/:id : get the "id" onlineOrderItem.
+     *
+     * @param id the id of the onlineOrderItem to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the onlineOrderItem, or with status 404 (Not Found)
+     */
+    @GetMapping("/online-order-items/online-order/{id}")
+    @Timed
+    public List<OnlineOrderItem> getOnlineOrderItems(@PathVariable Long id) {
+        log.debug("REST request to get OnlineOrderItem : {}", id);
+        List<OnlineOrderItem> onlineOrderItem = onlineOrderItemRepository.findAllByOnlineOrderId(id);
+		return  onlineOrderItem;
+    }
 }
