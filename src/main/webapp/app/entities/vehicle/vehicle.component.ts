@@ -18,15 +18,18 @@ export class VehicleComponent implements OnInit, OnDestroy {
     currentAccount: any;
     eventSubscriber: Subscription;
     settings = {
-        mode: 'external',
+        mode: 'inline',
         actions: {
-            edit: false,
+            columnTitle: '',
+            edit: true,
             delete: false,
             custom: [{ name: 'View', title: 'View ' }, { name: 'Delete', title: 'Delete' }]
         },
         columns: {
             id: {
-                title: 'Id'
+                title: 'Id',
+                editable: false,
+                addable: false
             },
             vehicleNumber: {
                 title: 'Vehicle number'
@@ -37,6 +40,13 @@ export class VehicleComponent implements OnInit, OnDestroy {
             model: {
                 title: 'Model'
             }
+        },
+        add: {
+            addButtonContent: 'Add new vehicle'
+        },
+        edit: {},
+        attr: {
+            class: 'table table-striped table-bordered table-hover'
         }
     };
     data: LocalDataSource;
