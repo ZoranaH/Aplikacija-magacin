@@ -1,3 +1,4 @@
+import { Account } from './../../core/user/account.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
@@ -42,9 +43,12 @@ export class VehicleComponent implements OnInit, OnDestroy {
             }
         },
         add: {
-            addButtonContent: 'Add new vehicle'
+            addButtonContent: 'Add new vehicle',
+            confirmCreate: true
         },
-        edit: {},
+        edit: {
+            confirmSave: true
+        },
         attr: {
             class: 'table table-striped table-bordered table-hover'
         }
@@ -104,6 +108,35 @@ export class VehicleComponent implements OnInit, OnDestroy {
         } else if (event.action === 'Delete') {
             this.router.navigate(['/', { outlets: { popup: 'vehicle/' + event.data.id + '/delete' } }]);
             console.log(event);
+        }
+    }
+
+    onEditConfirm(event) {
+        const brand = event.newData['brand'];
+        const model = event.newData['model'];
+        if (brand && model && brand[0] !== brand[0].toLowerCase() && model[0] !== model[0].toLowerCase()) {
+            if (window.confirm('Are you sure you want to save?')) {
+                //    event.newData['brand'] = event.newData['brand'];
+                //    event.newData['model'] = event.newData['model'];
+                event.confirm.resolve(event.newData);
+            }
+        } else {
+            window.alert('Ime brenda i/ili modela mora poceti velikim slovom i polje ne sme ostati prazno');
+            event.confirm.reject();
+        }
+    }
+
+    onCreateConfirm(event) {
+        const brand = event.newData['brand'];
+        const model = event.newData['model'];
+        if (brand && model && brand[0] !== brand[0].toLowerCase() && model[0] !== model[0].toLowerCase()) {
+            if (window.confirm('Are you sure you want to create?')) {
+                //  event.newData['brand'] = event.newData['brand'];
+                event.confirm.resolve(event.newData);
+            }
+        } else {
+            window.alert('Ime brenda i/ili modela mora poceti velikim slovom i polje ne sme ostati prazno');
+            event.confirm.reject();
         }
     }
 }

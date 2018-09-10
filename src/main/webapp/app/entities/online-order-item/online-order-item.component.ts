@@ -95,8 +95,8 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
     ngOnInit() {
         if (this.activatedRoute.snapshot.params['id']) {
             this.idOfItem = +this.activatedRoute.snapshot.params['id'];
+            this.loadAll();
         }
-        this.loadAll();
         this.principal.identity().then(account => {
             this.currentAccount = account;
         });
