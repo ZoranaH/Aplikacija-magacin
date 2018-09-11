@@ -120,4 +120,8 @@ export class OnlineOrderComponent implements OnInit, OnDestroy {
             console.log(event);
         }
     }
+
+    hideColumnForUser() {
+        delete this.settings.columns.totalPrice;
+    }
 }

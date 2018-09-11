@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { JhiAlertService } from 'ng-jhipster';
@@ -22,13 +22,15 @@ export class OnlineOrderUpdateComponent implements OnInit {
     clients: IClient[];
 
     cities: ICity[];
+    showTotalPrice: boolean;
 
     constructor(
         private jhiAlertService: JhiAlertService,
         private onlineOrderService: OnlineOrderService,
         private clientService: ClientService,
         private cityService: CityService,
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private router: Router
     ) {}
 
     ngOnInit() {
@@ -48,6 +50,8 @@ export class OnlineOrderUpdateComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
+        this.showTotalPrice = !this.router.url.includes('new');
+        // console.log('ruta je  ' ,  this.router.url , 'boolean je ', this.showTotalPrice);
     }
 
     previousState() {

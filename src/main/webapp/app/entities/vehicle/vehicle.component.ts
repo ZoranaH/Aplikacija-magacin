@@ -1,14 +1,14 @@
 import { Account } from './../../core/user/account.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
-import { IVehicle } from 'app/shared/model/vehicle.model';
+import { IVehicle, Vehicle } from 'app/shared/model/vehicle.model';
 import { Principal } from 'app/core';
 import { VehicleService } from './vehicle.service';
 import { LocalDataSource } from 'ng2-smart-table';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'jhi-vehicle',
@@ -28,9 +28,9 @@ export class VehicleComponent implements OnInit, OnDestroy {
         },
         columns: {
             id: {
-                title: 'Id',
-                editable: false,
-                addable: false
+                title: 'Id'
+                // editable: false,
+                // addable: false
             },
             vehicleNumber: {
                 title: 'Vehicle number'
@@ -54,13 +54,15 @@ export class VehicleComponent implements OnInit, OnDestroy {
         }
     };
     data: LocalDataSource;
+    isSaving: boolean;
 
     constructor(
         private vehicleService: VehicleService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
         private principal: Principal,
-        private router: Router
+        private router: Router,
+        private activatedRoute: ActivatedRoute
     ) {}
 
     loadAll() {
@@ -114,11 +116,14 @@ export class VehicleComponent implements OnInit, OnDestroy {
     onEditConfirm(event) {
         const brand = event.newData['brand'];
         const model = event.newData['model'];
+        const item: Vehicle = event.newData;
         if (brand && model && brand[0] !== brand[0].toLowerCase() && model[0] !== model[0].toLowerCase()) {
             if (window.confirm('Are you sure you want to save?')) {
                 //    event.newData['brand'] = event.newData['brand'];
                 //    event.newData['model'] = event.newData['model'];
-                event.confirm.resolve(event.newData);
+                this.isSaving = true;
+                this.save(item);
+                event.confirm.resolve(item);
             }
         } else {
             window.alert('Ime brenda i/ili modela mora poceti velikim slovom i polje ne sme ostati prazno');
@@ -129,14 +134,46 @@ export class VehicleComponent implements OnInit, OnDestroy {
     onCreateConfirm(event) {
         const brand = event.newData['brand'];
         const model = event.newData['model'];
+        const item: Vehicle = event.newData;
         if (brand && model && brand[0] !== brand[0].toLowerCase() && model[0] !== model[0].toLowerCase()) {
             if (window.confirm('Are you sure you want to create?')) {
                 //  event.newData['brand'] = event.newData['brand'];
-                event.confirm.resolve(event.newData);
+                this.isSaving = true;
+                this.save(item);
+                event.confirm.resolve(item);
             }
         } else {
             window.alert('Ime brenda i/ili modela mora poceti velikim slovom i polje ne sme ostati prazno');
             event.confirm.reject();
         }
+    }
+
+    previousState() {
+        window.history.back();
+    }
+
+    save(vehicle: Vehicle) {
+        this.isSaving = true;
+        if (vehicle.id) {
+            this.subscribeToSaveResponse(this.vehicleService.update(vehicle));
+            console.log('uspelo update id je  ' + vehicle.id);
+        } else {
+            this.subscribeToSaveResponse(this.vehicleService.create(vehicle));
+            console.log('sacuvano za novi' + vehicle.id);
+        }
+    }
+
+    private subscribeToSaveResponse(result: Observable<HttpResponse<IVehicle>>) {
+        result.subscribe((res: HttpResponse<IVehicle>) => this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError(res));
+    }
+
+    private onSaveSuccess(item: IVehicle) {
+        this.isSaving = false;
+        console.log('test VehicleComponent onSaveSuccess() item:', item);
+    }
+
+    private onSaveError(err: HttpErrorResponse) {
+        this.isSaving = false;
+        console.log('test VehicleComponent onSaveError() ERROR:', err);
     }
 }
