@@ -121,6 +121,10 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
 
     addNew(event) {
         this.router.navigate(['online-order-item/new']);
+        this.eventManager.broadcast({
+            name: 'changeSaveOnlineOrder',
+            content: ''
+        });
     }
 
     addCustom(event) {

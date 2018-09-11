@@ -18,6 +18,7 @@ export class OnlineOrderComponent implements OnInit, OnDestroy {
     onlineOrders: IOnlineOrder[];
     currentAccount: any;
     eventSubscriber: Subscription;
+    eventSubscriberOrderSave: Subscription;
     settings = {
         mode: 'external',
         actions: {
@@ -98,6 +99,7 @@ export class OnlineOrderComponent implements OnInit, OnDestroy {
 
     registerChangeInOnlineOrders() {
         this.eventSubscriber = this.eventManager.subscribe('onlineOrderListModification', response => this.loadAll());
+        // this.eventSubscriberOrderSave = this.eventManager.subscribe('changeSaveOnlineOrder', response => this.save());
     }
 
     private onError(errorMessage: string) {
