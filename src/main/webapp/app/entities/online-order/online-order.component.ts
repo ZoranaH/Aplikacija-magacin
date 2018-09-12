@@ -107,7 +107,7 @@ export class OnlineOrderComponent implements OnInit, OnDestroy {
     }
 
     addNew(event) {
-        this.router.navigate(['online-order/new']);
+        this.router.navigate(['online-order/Hello']);
     }
 
     addCustom(event) {

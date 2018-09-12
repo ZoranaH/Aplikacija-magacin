@@ -55,6 +55,7 @@ export class VehicleComponent implements OnInit, OnDestroy {
     };
     data: LocalDataSource;
     isSaving: boolean;
+    event: any;
 
     constructor(
         private vehicleService: VehicleService,
@@ -114,6 +115,7 @@ export class VehicleComponent implements OnInit, OnDestroy {
     }
 
     onEditConfirm(event) {
+        this.event = event;
         const brand = event.newData['brand'];
         const model = event.newData['model'];
         const item: Vehicle = event.newData;
@@ -132,15 +134,14 @@ export class VehicleComponent implements OnInit, OnDestroy {
     }
 
     onCreateConfirm(event) {
+        this.event = event;
         const brand = event.newData['brand'];
         const model = event.newData['model'];
         const item: Vehicle = event.newData;
         if (brand && model && brand[0] !== brand[0].toLowerCase() && model[0] !== model[0].toLowerCase()) {
             if (window.confirm('Are you sure you want to create?')) {
-                //  event.newData['brand'] = event.newData['brand'];
                 this.isSaving = true;
                 this.save(item);
-                event.confirm.resolve(item);
                 console.log('ID je  ', item.id);
             } else {
                 event.confirm.reject();
@@ -149,7 +150,6 @@ export class VehicleComponent implements OnInit, OnDestroy {
             window.alert('Ime brenda i/ili modela mora poceti velikim slovom i polje ne sme ostati prazno');
             event.confirm.reject();
         }
-        this.data.refresh();
     }
 
     previousState() {
@@ -173,8 +173,8 @@ export class VehicleComponent implements OnInit, OnDestroy {
 
     private onSaveSuccess(item: IVehicle) {
         this.isSaving = false;
-        this.data.refresh();
-        console.log('test VehicleComponent onSaveSuccess() item:', item, 'ID JE ', item.id, 'DATA JE ');
+        this.event.confirm.resolve(item);
+        console.log('test VehicleComponent onSaveSuccess() item:', item, 'ID JE ', item.id, 'DATA JE ', this.event.newData['model']);
     }
 
     private onSaveError(err: HttpErrorResponse) {
