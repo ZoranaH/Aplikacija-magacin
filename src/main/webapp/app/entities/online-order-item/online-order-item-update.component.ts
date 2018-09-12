@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { JhiAlertService } from 'ng-jhipster';
+import { Observable, Subscription } from 'rxjs';
+import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 
 import { IOnlineOrderItem } from 'app/shared/model/online-order-item.model';
 import { OnlineOrderItemService } from './online-order-item.service';
@@ -28,14 +28,14 @@ export class OnlineOrderItemUpdateComponent implements OnInit {
         private onlineOrderItemService: OnlineOrderItemService,
         private onlineOrderService: OnlineOrderService,
         private articleService: ArticleService,
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private eventManager: JhiEventManager
     ) {}
 
     ngOnInit() {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ onlineOrderItem }) => {
             this.onlineOrderItem = onlineOrderItem;
-            this.onlineOrderItem.itemPrice = onlineOrderItem.article.price * onlineOrderItem.orderedAmount;
         });
         this.onlineOrderService.query().subscribe(
             (res: HttpResponse<IOnlineOrder[]>) => {

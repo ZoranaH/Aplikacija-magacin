@@ -28,9 +28,9 @@ export class VehicleComponent implements OnInit, OnDestroy {
         },
         columns: {
             id: {
-                title: 'Id'
-                // editable: false,
-                // addable: false
+                title: 'Id',
+                editable: false,
+                addable: false
             },
             vehicleNumber: {
                 title: 'Vehicle number'
@@ -141,11 +141,15 @@ export class VehicleComponent implements OnInit, OnDestroy {
                 this.isSaving = true;
                 this.save(item);
                 event.confirm.resolve(item);
+                console.log('ID je  ', item.id);
+            } else {
+                event.confirm.reject();
             }
         } else {
             window.alert('Ime brenda i/ili modela mora poceti velikim slovom i polje ne sme ostati prazno');
             event.confirm.reject();
         }
+        this.data.refresh();
     }
 
     previousState() {
@@ -169,6 +173,7 @@ export class VehicleComponent implements OnInit, OnDestroy {
 
     private onSaveSuccess(item: IVehicle) {
         this.isSaving = false;
+        this.data.refresh();
         console.log('test VehicleComponent onSaveSuccess() item:', item);
     }
 

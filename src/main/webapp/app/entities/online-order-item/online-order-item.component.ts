@@ -62,13 +62,14 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
             (res: HttpResponse<IOnlineOrderItem[]>) => {
                 this.onlineOrderItems = res.body;
                 this.data = new LocalDataSource();
+                let totalPricePerOrder = 0;
                 for (const onlineOrder of res.body) {
                     if (onlineOrder.onlineOrder !== null) {
                         onlineOrder.onlineOrderName = onlineOrder.onlineOrder.id;
                     } else {
                         onlineOrder.onlineOrderName = 0;
                     }
-                    if (onlineOrder.article.name !== null) {
+                    if (onlineOrder.article !== null) {
                         onlineOrder.articleName = onlineOrder.article.name;
                     } else {
                         onlineOrder.articleName = '...';
@@ -76,6 +77,8 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
                     if (onlineOrder.article.price !== null) {
                         onlineOrder.itemPrice = onlineOrder.article.price * onlineOrder.orderedAmount;
                         onlineOrder.articlePrice = onlineOrder.article.price;
+                        totalPricePerOrder += onlineOrder.itemPrice;
+                        console.log('total price je ', totalPricePerOrder);
                     } else {
                         onlineOrder.itemPrice = 0;
                     }
@@ -87,6 +90,7 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
                     this.data.add(onlineOrder);
                     console.log('vrednost je ' + onlineOrder.onlineOrder.id);
                 }
+                this.brodcastToOnlineOrderTotalPice(totalPricePerOrder);
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -140,6 +144,13 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
         this.eventManager.broadcast({
             name: 'changeSaveOnlineOrder',
             content: ''
+        });
+    }
+
+    brodcastToOnlineOrderTotalPice(totalPrice: number) {
+        this.eventManager.broadcast({
+            name: 'onlineOrderTotalPrice',
+            content: totalPrice
         });
     }
 }

@@ -24,6 +24,7 @@ export class OnlineOrderUpdateComponent implements OnInit, OnDestroy {
     cities: ICity[];
     showTotalPrice: boolean;
     eventSubscriberOrderSave: Subscription;
+    eventSubscriber: Subscription;
 
     constructor(
         private jhiAlertService: JhiAlertService,
@@ -39,6 +40,9 @@ export class OnlineOrderUpdateComponent implements OnInit, OnDestroy {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ onlineOrder }) => {
             this.onlineOrder = onlineOrder;
+            this.eventSubscriber = this.eventManager.subscribe('onlineOrderTotalPrice', response => {
+                this.onlineOrder.totalPrice = response.content;
+            });
         });
         this.clientService.query().subscribe(
             (res: HttpResponse<IClient[]>) => {
@@ -59,6 +63,7 @@ export class OnlineOrderUpdateComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriberOrderSave);
+        this.eventManager.destroy(this.eventSubscriber);
     }
 
     registerChangeInOnlineOrders() {
