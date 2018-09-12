@@ -78,17 +78,12 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
                         onlineOrder.itemPrice = onlineOrder.article.price * onlineOrder.orderedAmount;
                         onlineOrder.articlePrice = onlineOrder.article.price;
                         totalPricePerOrder += onlineOrder.itemPrice;
-                        console.log('total price je ', totalPricePerOrder);
+                        // console.log('total price je ', totalPricePerOrder);
                     } else {
                         onlineOrder.itemPrice = 0;
                     }
-                    // if (onlineOrder.onlineOrder.id === this.idOfItem) {
-                    //     this.data.add(onlineOrder);
-                    // } else if (this.idOfItem === undefined) {
-                    //     this.data.add(onlineOrder);
-                    // }
                     this.data.add(onlineOrder);
-                    console.log('vrednost je ' + onlineOrder.onlineOrder.id);
+                    // console.log('vrednost je ' + onlineOrder.onlineOrder.id);
                 }
                 this.brodcastToOnlineOrderTotalPice(totalPricePerOrder);
             },
@@ -125,18 +120,21 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
 
     addNew(event) {
         this.brodcastToOnlineOrderUpdate();
-        setTimeout(() => this.router.navigate(['online-order-item/new']), 100);
+        setTimeout(() => this.router.navigate(['online-order/' + this.idOfItem + '/online-order-item/new']), 100);
     }
 
     addCustom(event) {
         this.brodcastToOnlineOrderUpdate();
         if (event.action === 'View') {
-            setTimeout(() => this.router.navigate(['online-order-item/' + event.data.id + '/view']), 100);
+            setTimeout(
+                () => this.router.navigate(['online-order/' + this.idOfItem + '/online-order-item/' + event.data.id + '/view']),
+                100
+            );
         } else if (event.action === 'Delete') {
             setTimeout(() => this.router.navigate(['/', { outlets: { popup: 'online-order-item/' + event.data.id + '/delete' } }]), 100);
         } else if (event.action === 'Edit') {
-            this.router.navigate(['online-order-item/' + event.data.id + '/edit']);
-            console.log(event);
+            this.router.navigate(['online-order/' + this.idOfItem + '/online-order-item/' + event.data.id + '/edit']);
+            // console.log(event);
         }
     }
 

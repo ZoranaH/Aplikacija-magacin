@@ -18,10 +18,9 @@ import { ArticleService } from 'app/entities/article';
 export class OnlineOrderItemUpdateComponent implements OnInit {
     private _onlineOrderItem: IOnlineOrderItem;
     isSaving: boolean;
-
-    onlineorders: IOnlineOrder[];
-
+    onlineorders: IOnlineOrder;
     articles: IArticle[];
+    idOfOrder: number;
 
     constructor(
         private jhiAlertService: JhiAlertService,
@@ -33,13 +32,18 @@ export class OnlineOrderItemUpdateComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        if (this.activatedRoute.snapshot.params['orderid']) {
+            this.idOfOrder = +this.activatedRoute.snapshot.params['orderid'];
+        }
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ onlineOrderItem }) => {
             this.onlineOrderItem = onlineOrderItem;
         });
-        this.onlineOrderService.query().subscribe(
-            (res: HttpResponse<IOnlineOrder[]>) => {
+        this.onlineOrderService.find(this.idOfOrder).subscribe(
+            (res: HttpResponse<IOnlineOrder>) => {
                 this.onlineorders = res.body;
+                this.onlineOrderItem.onlineOrder = this.onlineorders;
+                console.log('id od online ordera je ' + this.onlineorders.id);
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );

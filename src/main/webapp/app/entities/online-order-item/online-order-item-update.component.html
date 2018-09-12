@@ -34,13 +34,20 @@
                         [(ngModel)]="onlineOrderItem.itemPrice" readonly="true" />
                 </div>
 
-                <div class="form-group">
+                <!-- <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="brezaApp.onlineOrderItem.onlineOrder" for="field_onlineOrder">Online Order</label>
+                    <output type="number" class="form-control" name="onlineOrder" id="field_onlineOrder"
+                        [(ngModel)]="onlineorders.id" readonly="true" >{{onlineorders.id}}</output>
+                </div> -->
+
+                <!-- <div class="form-group">
                     <label class="form-control-label" jhiTranslate="brezaApp.onlineOrderItem.onlineOrder" for="field_onlineOrder">Online Order</label>
                     <select class="form-control" id="field_onlineOrder" name="onlineOrder" [(ngModel)]="onlineOrderItem.onlineOrder"  required>
                         <option *ngIf="!editForm.value.onlineOrder" [ngValue]="null" selected></option>
-                        <option [ngValue]="onlineOrderOption.id === onlineOrderItem.onlineOrder?.id ? onlineOrderItem.onlineOrder : onlineOrderOption" *ngFor="let onlineOrderOption of onlineorders; trackBy: trackOnlineOrderById">{{onlineOrderOption.id}}</option>
+                        <option [ngValue]="onlineOrderOption.id === onlineOrderItem.onlineOrder?.id ? onlineOrderItem.onlineOrder : onlineOrderOption" *ngFor="let onlineOrderOption of onlineorders; trackBy: trackOnlineOrderById">{{onlineorders.id}}</option>
                     </select>
-                </div>
+                </div> -->
+
                 <div [hidden]="!(editForm.controls.onlineOrder?.dirty && editForm.controls.onlineOrder?.invalid)">
                     <small class="form-text text-danger"
                         [hidden]="!editForm.controls.onlineOrder?.errors?.required" jhiTranslate="entity.validation.required">
