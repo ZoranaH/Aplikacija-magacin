@@ -174,7 +174,7 @@ export class VehicleComponent implements OnInit, OnDestroy {
     private onSaveSuccess(item: IVehicle) {
         this.isSaving = false;
         this.data.refresh();
-        console.log('test VehicleComponent onSaveSuccess() item:', item);
+        console.log('test VehicleComponent onSaveSuccess() item:', item, 'ID JE ', item.id, 'DATA JE ');
     }
 
     private onSaveError(err: HttpErrorResponse) {
