@@ -3,18 +3,18 @@
     "brezaApp": {
         "onlineOrder" : {
             "home": {
-                "title": "Online Orders",
-                "createLabel": "Kreiraj novi Online Order",
-                "createOrEditLabel": "Kreirajte ili izmenite Online Order"
+                "title": "Narudzbina",
+                "createLabel": "Kreiraj novi narudzbinu",
+                "createOrEditLabel": "Kreirajte ili izmenite narudzbinu"
             },
-            "created": "Kreiran je novi Online Order pod nazivom {{ param }}",
-            "updated": "Online Order pod nazivom {{ param }} je ažuriran",
-            "deleted": "Online Order pod nazivom {{ param }} je obrisan",
+            "created": "Kreirana je nova narudzbina pod brojem {{ param }}",
+            "updated": "Narudzbina pod nazivom {{ param }} je ažurirana",
+            "deleted": "Narudzbina pod nazivom {{ param }} je obrisana",
             "delete": {
-                "question": "Da li ste sigurni da želite da obrišete Online Order pod nazivom {{ id }}?"
+                "question": "Da li ste sigurni da želite da obrišete narudzbinu pod brojem {{ id }}?"
             },
             "detail": {
-                "title": "Online Order"
+                "title": "Narudzbina"
             },
             "address": "Address",
             "phoneNumber": "Phone Number",

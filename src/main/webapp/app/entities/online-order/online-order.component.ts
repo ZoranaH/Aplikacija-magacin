@@ -1,3 +1,4 @@
+import { OnlineOrderItemService } from './../online-order-item/online-order-item.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
@@ -17,6 +18,7 @@ export class OnlineOrderComponent implements OnInit, OnDestroy {
     onlineOrders: IOnlineOrder[];
     currentAccount: any;
     eventSubscriber: Subscription;
+    eventSubscriberOrderSave: Subscription;
     settings = {
         mode: 'external',
         actions: {
@@ -46,6 +48,7 @@ export class OnlineOrderComponent implements OnInit, OnDestroy {
         }
     };
     data: LocalDataSource;
+    isHidden: boolean;
 
     constructor(
         private onlineOrderService: OnlineOrderService,
@@ -96,6 +99,7 @@ export class OnlineOrderComponent implements OnInit, OnDestroy {
 
     registerChangeInOnlineOrders() {
         this.eventSubscriber = this.eventManager.subscribe('onlineOrderListModification', response => this.loadAll());
+        // this.eventSubscriberOrderSave = this.eventManager.subscribe('changeSaveOnlineOrder', response => this.save());
     }
 
     private onError(errorMessage: string) {
@@ -103,7 +107,7 @@ export class OnlineOrderComponent implements OnInit, OnDestroy {
     }
 
     addNew(event) {
-        this.router.navigate(['online-order/new']);
+        this.router.navigate(['online-order/Hello']);
     }
 
     addCustom(event) {
@@ -117,5 +121,9 @@ export class OnlineOrderComponent implements OnInit, OnDestroy {
             this.router.navigate(['online-order/' + event.data.id + '/edit']);
             console.log(event);
         }
+    }
+
+    hideColumnForUser() {
+        delete this.settings.columns.totalPrice;
     }
 }

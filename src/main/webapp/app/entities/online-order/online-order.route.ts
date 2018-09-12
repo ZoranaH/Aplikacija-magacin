@@ -48,7 +48,7 @@ export const onlineOrderRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'online-order/new',
+        path: 'online-order/Hello',
         component: OnlineOrderUpdateComponent,
         resolve: {
             onlineOrder: OnlineOrderResolve

@@ -5,7 +5,8 @@
             "fieldName": "orderedAmount",
             "fieldType": "Integer",
             "fieldValidateRules": [
-                "required"
+                "required",
+                "min"
             ]
         },
         {

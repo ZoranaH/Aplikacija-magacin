@@ -15,6 +15,7 @@ export class OnlineOrderItemDetailComponent implements OnInit {
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ onlineOrderItem }) => {
             this.onlineOrderItem = onlineOrderItem;
+            this.onlineOrderItem.itemPrice = onlineOrderItem.article.price * onlineOrderItem.orderedAmount;
         });
     }
 

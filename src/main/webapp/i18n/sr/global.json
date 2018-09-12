@@ -15,6 +15,7 @@
                 "type": "Type",
                 "onlineOrder": "Online Order",
                 "onlineOrderItem": "Online Order Item",
+                "vehicle": "Vehicle",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

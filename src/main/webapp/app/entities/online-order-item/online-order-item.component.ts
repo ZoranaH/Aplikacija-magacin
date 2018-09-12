@@ -7,7 +7,7 @@ import { IOnlineOrderItem } from 'app/shared/model/online-order-item.model';
 import { Principal } from 'app/core';
 import { OnlineOrderItemService } from './online-order-item.service';
 import { LocalDataSource } from 'ng2-smart-table';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'jhi-online-order-item',
@@ -39,44 +39,63 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
             },
             articleName: {
                 title: 'Article'
+            },
+            articlePrice: {
+                title: 'Article price'
             }
         }
     };
     data: LocalDataSource;
+    idOfItem: number;
 
     constructor(
         private onlineOrderItemService: OnlineOrderItemService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
         private principal: Principal,
-        private router: Router
+        private router: Router,
+        private activatedRoute: ActivatedRoute
     ) {}
 
     loadAll() {
-        this.onlineOrderItemService.query().subscribe(
+        this.onlineOrderItemService.findByOnlineOrder(this.idOfItem).subscribe(
             (res: HttpResponse<IOnlineOrderItem[]>) => {
                 this.onlineOrderItems = res.body;
                 this.data = new LocalDataSource();
+                let totalPricePerOrder = 0;
                 for (const onlineOrder of res.body) {
                     if (onlineOrder.onlineOrder !== null) {
                         onlineOrder.onlineOrderName = onlineOrder.onlineOrder.id;
                     } else {
                         onlineOrder.onlineOrderName = 0;
                     }
-                    if (onlineOrder.article.name !== null) {
+                    if (onlineOrder.article !== null) {
                         onlineOrder.articleName = onlineOrder.article.name;
                     } else {
                         onlineOrder.articleName = '...';
                     }
+                    if (onlineOrder.article.price !== null) {
+                        onlineOrder.itemPrice = onlineOrder.article.price * onlineOrder.orderedAmount;
+                        onlineOrder.articlePrice = onlineOrder.article.price;
+                        totalPricePerOrder += onlineOrder.itemPrice;
+                        // console.log('total price je ', totalPricePerOrder);
+                    } else {
+                        onlineOrder.itemPrice = 0;
+                    }
                     this.data.add(onlineOrder);
+                    // console.log('vrednost je ' + onlineOrder.onlineOrder.id);
                 }
+                this.brodcastToOnlineOrderTotalPice(totalPricePerOrder);
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
     }
 
     ngOnInit() {
-        this.loadAll();
+        if (this.activatedRoute.snapshot.params['id']) {
+            this.idOfItem = +this.activatedRoute.snapshot.params['id'];
+            this.loadAll();
+        }
         this.principal.identity().then(account => {
             this.currentAccount = account;
         });
@@ -100,19 +119,36 @@ export class OnlineOrderItemComponent implements OnInit, OnDestroy {
     }
 
     addNew(event) {
-        this.router.navigate(['online-order-item/new']);
+        this.brodcastToOnlineOrderUpdate();
+        setTimeout(() => this.router.navigate(['online-order/' + this.idOfItem + '/online-order-item/new']), 100);
     }
 
     addCustom(event) {
+        this.brodcastToOnlineOrderUpdate();
         if (event.action === 'View') {
-            this.router.navigate(['online-order-item/' + event.data.id + '/view']);
-            console.log(event);
+            setTimeout(
+                () => this.router.navigate(['online-order/' + this.idOfItem + '/online-order-item/' + event.data.id + '/view']),
+                100
+            );
         } else if (event.action === 'Delete') {
-            this.router.navigate(['/', { outlets: { popup: 'online-order-item/' + event.data.id + '/delete' } }]);
-            console.log(event);
+            setTimeout(() => this.router.navigate(['/', { outlets: { popup: 'online-order-item/' + event.data.id + '/delete' } }]), 100);
         } else if (event.action === 'Edit') {
-            this.router.navigate(['online-order-item/' + event.data.id + '/edit']);
-            console.log(event);
+            this.router.navigate(['online-order/' + this.idOfItem + '/online-order-item/' + event.data.id + '/edit']);
+            // console.log(event);
         }
+    }
+
+    brodcastToOnlineOrderUpdate() {
+        this.eventManager.broadcast({
+            name: 'changeSaveOnlineOrder',
+            content: ''
+        });
+    }
+
+    brodcastToOnlineOrderTotalPice(totalPrice: number) {
+        this.eventManager.broadcast({
+            name: 'onlineOrderTotalPrice',
+            content: totalPrice
+        });
     }
 }

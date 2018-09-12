@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { JhiAlertService } from 'ng-jhipster';
-
+import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
+import { Subscription } from 'rxjs';
 import { IOnlineOrder } from 'app/shared/model/online-order.model';
 import { OnlineOrderService } from './online-order.service';
 import { IClient } from 'app/shared/model/client.model';
@@ -15,26 +15,34 @@ import { CityService } from 'app/entities/city';
     selector: 'jhi-online-order-update',
     templateUrl: './online-order-update.component.html'
 })
-export class OnlineOrderUpdateComponent implements OnInit {
+export class OnlineOrderUpdateComponent implements OnInit, OnDestroy {
     private _onlineOrder: IOnlineOrder;
     isSaving: boolean;
 
     clients: IClient[];
 
     cities: ICity[];
+    showTotalPrice: boolean;
+    eventSubscriberOrderSave: Subscription;
+    eventSubscriber: Subscription;
 
     constructor(
         private jhiAlertService: JhiAlertService,
         private onlineOrderService: OnlineOrderService,
         private clientService: ClientService,
         private cityService: CityService,
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private router: Router,
+        private eventManager: JhiEventManager
     ) {}
 
     ngOnInit() {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ onlineOrder }) => {
             this.onlineOrder = onlineOrder;
+            this.eventSubscriber = this.eventManager.subscribe('onlineOrderTotalPrice', response => {
+                this.onlineOrder.totalPrice = response.content;
+            });
         });
         this.clientService.query().subscribe(
             (res: HttpResponse<IClient[]>) => {
@@ -48,6 +56,18 @@ export class OnlineOrderUpdateComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
+        this.showTotalPrice = !this.router.url.includes('new');
+        // console.log('ruta je  ' ,  this.router.url , 'boolean je ', this.showTotalPrice);
+        this.registerChangeInOnlineOrders();
+    }
+
+    ngOnDestroy() {
+        this.eventManager.destroy(this.eventSubscriberOrderSave);
+        this.eventManager.destroy(this.eventSubscriber);
+    }
+
+    registerChangeInOnlineOrders() {
+        this.eventSubscriberOrderSave = this.eventManager.subscribe('changeSaveOnlineOrder', response => this.save());
     }
 
     previousState() {
@@ -69,7 +89,7 @@ export class OnlineOrderUpdateComponent implements OnInit {
 
     private onSaveSuccess() {
         this.isSaving = false;
-        this.previousState();
+        // this.previousState();
     }
 
     private onSaveError() {

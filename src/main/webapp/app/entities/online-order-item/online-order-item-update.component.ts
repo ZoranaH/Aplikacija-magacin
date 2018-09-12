@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { JhiAlertService } from 'ng-jhipster';
+import { Observable, Subscription } from 'rxjs';
+import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 
 import { IOnlineOrderItem } from 'app/shared/model/online-order-item.model';
 import { OnlineOrderItemService } from './online-order-item.service';
@@ -18,27 +18,32 @@ import { ArticleService } from 'app/entities/article';
 export class OnlineOrderItemUpdateComponent implements OnInit {
     private _onlineOrderItem: IOnlineOrderItem;
     isSaving: boolean;
-
-    onlineorders: IOnlineOrder[];
-
+    onlineorders: IOnlineOrder;
     articles: IArticle[];
+    idOfOrder: number;
 
     constructor(
         private jhiAlertService: JhiAlertService,
         private onlineOrderItemService: OnlineOrderItemService,
         private onlineOrderService: OnlineOrderService,
         private articleService: ArticleService,
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private eventManager: JhiEventManager
     ) {}
 
     ngOnInit() {
+        if (this.activatedRoute.snapshot.params['orderid']) {
+            this.idOfOrder = +this.activatedRoute.snapshot.params['orderid'];
+        }
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ onlineOrderItem }) => {
             this.onlineOrderItem = onlineOrderItem;
         });
-        this.onlineOrderService.query().subscribe(
-            (res: HttpResponse<IOnlineOrder[]>) => {
+        this.onlineOrderService.find(this.idOfOrder).subscribe(
+            (res: HttpResponse<IOnlineOrder>) => {
                 this.onlineorders = res.body;
+                this.onlineOrderItem.onlineOrder = this.onlineorders;
+                console.log('id od online ordera je ' + this.onlineorders.id);
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -93,5 +98,11 @@ export class OnlineOrderItemUpdateComponent implements OnInit {
 
     set onlineOrderItem(onlineOrderItem: IOnlineOrderItem) {
         this._onlineOrderItem = onlineOrderItem;
+    }
+
+    setItemPrice() {
+        if (this.onlineOrderItem.article && this.onlineOrderItem.orderedAmount) {
+            this.onlineOrderItem.itemPrice = this.onlineOrderItem.article.price * this.onlineOrderItem.orderedAmount;
+        }
     }
 }
