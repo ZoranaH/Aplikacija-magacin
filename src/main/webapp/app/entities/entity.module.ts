@@ -9,6 +9,8 @@ import { BrezaTypeModule } from './type/type.module';
 import { BrezaOnlineOrderModule } from './online-order/online-order.module';
 import { BrezaOnlineOrderItemModule } from './online-order-item/online-order-item.module';
 import { BrezaVehicleModule } from './vehicle/vehicle.module';
+import { BrezaDeliveryOrderModule } from './delivery-order/delivery-order.module';
+import { BrezaDeliveryOrderItemModule } from './delivery-order-item/delivery-order-item.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -23,6 +25,8 @@ import { BrezaVehicleModule } from './vehicle/vehicle.module';
         BrezaOnlineOrderModule,
         BrezaOnlineOrderItemModule,
         BrezaVehicleModule,
+        BrezaDeliveryOrderModule,
+        BrezaDeliveryOrderItemModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],
