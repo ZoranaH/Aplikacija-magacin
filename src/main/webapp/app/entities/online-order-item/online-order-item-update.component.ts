@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
 import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
@@ -28,7 +28,7 @@ export class OnlineOrderItemUpdateComponent implements OnInit {
         private onlineOrderService: OnlineOrderService,
         private articleService: ArticleService,
         private activatedRoute: ActivatedRoute,
-        private eventManager: JhiEventManager
+        private router: Router
     ) {}
 
     ngOnInit() {
@@ -74,7 +74,7 @@ export class OnlineOrderItemUpdateComponent implements OnInit {
 
     private onSaveSuccess() {
         this.isSaving = false;
-        this.previousState();
+        // this.previousState();
     }
 
     private onSaveError() {
@@ -104,5 +104,17 @@ export class OnlineOrderItemUpdateComponent implements OnInit {
         if (this.onlineOrderItem.article && this.onlineOrderItem.orderedAmount) {
             this.onlineOrderItem.itemPrice = this.onlineOrderItem.article.price * this.onlineOrderItem.orderedAmount;
         }
+    }
+
+    addNew() {
+        this.save();
+        const url = this.onlineOrderItem.onlineOrder.id;
+        this.router
+            .navigateByUrl('/', { skipLocationChange: true })
+            .then(() => this.router.navigate(['online-order/' + url + '/online-order-item/new']));
+    }
+
+    reRoute() {
+        this.router.navigate(['online-order/' + this.onlineOrderItem.onlineOrder.id + '/edit']);
     }
 }
