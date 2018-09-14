@@ -1,3 +1,4 @@
+import { DeliveryOrder, IDeliveryOrder } from './../../shared/model/delivery-order.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
@@ -10,6 +11,7 @@ import { IClient } from 'app/shared/model/client.model';
 import { ClientService } from 'app/entities/client';
 import { ICity } from 'app/shared/model/city.model';
 import { CityService } from 'app/entities/city';
+import { DeliveryOrderService } from 'app/entities/delivery-order';
 
 @Component({
     selector: 'jhi-online-order-update',
@@ -33,7 +35,8 @@ export class OnlineOrderUpdateComponent implements OnInit, OnDestroy {
         private cityService: CityService,
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        private eventManager: JhiEventManager
+        private eventManager: JhiEventManager,
+        private deliveryOrderService: DeliveryOrderService
     ) {}
 
     ngOnInit() {
@@ -89,7 +92,6 @@ export class OnlineOrderUpdateComponent implements OnInit, OnDestroy {
 
     private onSaveSuccess() {
         this.isSaving = false;
-        // this.previousState();
     }
 
     private onSaveError() {
@@ -113,5 +115,14 @@ export class OnlineOrderUpdateComponent implements OnInit, OnDestroy {
 
     set onlineOrder(onlineOrder: IOnlineOrder) {
         this._onlineOrder = onlineOrder;
+    }
+
+    createDeliveryOrder(event) {
+        const deliveryOrder = new DeliveryOrder();
+        deliveryOrder.onlineOrder = this.onlineOrder;
+        deliveryOrder.status = 'new';
+        this.deliveryOrderService
+            .create(deliveryOrder)
+            .subscribe((res: HttpResponse<IDeliveryOrder>) => console.log('TEST Odgovor od baze ', res.body));
     }
 }

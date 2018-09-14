@@ -71,7 +71,15 @@
                 <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary" (click)="previousState()">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
+                <button [disabled]="onlineOrder.id" type="button" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary" [hidden]="!showTotalPrice" (click)="createDeliveryOrder($event)">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.finalize">Finalize</span>
+                </button>
             </div>
+            <!-- <div *ngIf="onlineOrder.id">
+                <button type="button" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary" [hidden]="!showTotalPrice" (click)="createDeliveryOrder($event)">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div> -->
         </form>
     </div>
     <!-- <jhi-online-order-item *ngIf="onlineOrder.id"></jhi-online-order-item> -->

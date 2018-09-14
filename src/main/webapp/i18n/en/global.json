@@ -110,7 +110,8 @@
             "open": "Open",
             "save": "Save",
             "view": "View",
-            "addNew": "Add New"
+            "addNew": "Add New",
+            "finalize": "Finalize"
         },
         "detail": {
             "field": "Field",
