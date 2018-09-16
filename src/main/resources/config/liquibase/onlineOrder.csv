@@ -2,3 +2,5 @@ id;address;phone_number;total_price;client_id;city_id
 1;Becka 12;0345678;null;1;1
 2;Semka 23;034874359;null;2;2
 3;Katana 23;04564359;null;3;1
+4;Harma 34;05486904;null;10;4
+5;Jaiks 89;0982394;null;8;3

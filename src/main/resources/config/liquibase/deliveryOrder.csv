@@ -1,0 +1,6 @@
+id;delivery_date;status;online_order_id;vehicle_id;warehouse_clerk_id;driver_id
+1;2018-12-23;in progress;1;2;4;6
+2;2018-08-19;delivered;3;3;7;1
+3;null;new;2;null;null;null
+4;2018-11-03;in progress;4;2;10;5
+5;null;new;5;null;null;null
